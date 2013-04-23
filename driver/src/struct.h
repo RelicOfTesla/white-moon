@@ -1,45 +1,16 @@
-/***************************************************************************************
-* AUTHOR : Lo
-* DATE   : 2010-2-21
-* MODULE : struct.h
-* 
-* Command: 
-*   驱动的头文件
-*
-* Description:
-*   定义一些常量,避免重复劳动; 您可以在此添加需要的函数/结构体
-*
-****************************************************************************************
-
-Copyright (C) 2010 Lo.
-****************************************************************************************/
-
 #pragma once
 
 #include <ntddk.h> 
 #include <WinDef.h>
-/*
-typedef long LONG;
-typedef unsigned char  BOOL, *PBOOL;
-typedef unsigned char  BYTE, *PBYTE;
-typedef unsigned long  DWORD, *PDWORD;
-typedef unsigned short WORD, *PWORD;
+#include <PshPack1.h>
+#include <PopPack.h>
 
-typedef void  *HMODULE;
-typedef long NTSTATUS, *PNTSTATUS;
-typedef unsigned long DWORD;
-typedef DWORD * PDWORD;
-typedef unsigned long ULONG;
-typedef unsigned long ULONG_PTR;
-typedef ULONG *PULONG;
-typedef unsigned short WORD;
-typedef unsigned char BYTE; 
-typedef unsigned char UCHAR;
-typedef unsigned short USHORT;
-typedef void *PVOID;
-typedef BYTE BOOLEAN;
-*/
 #define SEC_IMAGE    0x01000000
+#define SystemModuleInformation 11
+#define IS_CC(p) p<0
+const DWORD HEAD_AUTO_MEMORY = 0xABCDEF77;			//内存标识
+const USpace =0x0000A1A1;		//Unicode的空格符
+#define KRNLN_FUNC(name)	EXTERN_C void WINAPIV krnln_##name()		//命令信息定义
 
 //----------------------------------------------------
 
@@ -343,21 +314,55 @@ typedef struct _OBJECT_DIRECTORY {
 	USHORT SymbolicLinkUsageCount;
 } OBJECT_DIRECTORY, *POBJECT_DIRECTORY;
 
-/*
-typedef enum _KAPC_ENVIRONMENT {
-  OriginalApcEnvironment,
-  AttachedApcEnvironment,
-  CurrentApcEnvironment,
-  InsertApcEnvironment
-} KAPC_ENVIRONMENT;
-*/
-
 typedef enum
 {
     OriginalApcEnvironment,
 	AttachedApcEnvironment,
 	CurrentApcEnvironment
 } KAPC_ENVIRONMENT;
+
+
+typedef struct _SYSTEM_MODULE_INFORMATION {
+	ULONG Reserved[2];
+	PVOID Base;
+	ULONG Size;
+	ULONG Flags;
+	USHORT Index;
+	USHORT Unknow;
+	USHORT LoadCount;
+	USHORT ModuleNameOffset;
+	char ImageName[256];
+} SYSTEM_MODULE_INFORMATION, *PSYSTEM_MODULE_INFORMATION;
+
+typedef struct _SYSTEM_TIME_OF_DAY_INFORMATION{
+	__int64 BootTime;
+	__int64 CurrentTime;
+	__int64 TimeZoneBias;
+	INT		CurrentTimeZoneId;	
+}SYSTEM_TIME_OF_DAY_INFORMATION,*PSYSTEM_TIME_OF_DAY_INFORMATION;
+
+typedef struct _SYSTEM_MODULE_INFORMATION_LIST
+{
+	ULONG Count;
+	SYSTEM_MODULE_INFORMATION ModuleList[1];
+}SYSTEM_MODULE_INFORMATION_LIST, *PSYSTEM_MODULE_INFORMATION_LIST;
+
+typedef struct _MEM_HEAD		//内存申请校验
+{
+	DWORD Check;
+	DWORD Size;
+}*MEM_NODE_PTR;
+
+typedef struct _MARG_INF			//双精度等8位返回联合类型
+{
+    union
+    {
+		INT64	      m_int64;        // SDT_INT64
+		FLOAT	      m_float;        // SDT_FLOAT
+		DOUBLE	      m_double;       // SDT_DOUBLE
+    };
+} MARG_INF;
+typedef MARG_INF* PMARG_INF;
 
 //----------------------------------------------------
 
@@ -409,7 +414,24 @@ RtlFormatCurrentUserKeyPath(
     OUT PUNICODE_STRING CurrentUserKeyPath
     );
 
-NTSYSAPI VOID KeAttachProcess( PEPROCESS proc );
+NTSTATUS 
+ZwSetSystemTime ( 
+				 __in_opt PLARGE_INTEGER SystemTime, 
+				 __out_opt PLARGE_INTEGER PreviousTime 
+    ); 
 
-NTSYSAPI VOID KeDetachProcess();
+VOID KeAttachProcess( PEPROCESS proc );
+VOID KeDetachProcess();
 
+int __cdecl sprintf(char *, const char *, ...);
+int __cdecl rand(void);
+int __cdecl atoi(const char *nptr); 
+long __cdecl atol(const char *nptr); 
+DOUBLE __cdecl atof(const char *nptr); 
+double  __cdecl fmod(double, double);
+double  __cdecl ceil(double);
+double  __cdecl floor(double);
+void   __cdecl srand(unsigned int);
+__int64 __cdecl _atoi64(const char *);
+char * __cdecl _i64toa(__int64, char *, int);
+__int64 __cdecl _strtoi64(const char *, char **, int);

@@ -8,7 +8,7 @@ EXTERN_C void WINAPIV krnl_MFree(PVOID lpMem);
 EXTERN_C void WINAPIV krnl_MReportError(UINT uErrCode);
 
 // 使用指定文本数据建立易程序中使用的文本数据。
-char* CloneTextData (char* ps)
+char* WINAPIV CloneTextData (char* ps)
 {
 	INT nTextLen;
 	char* pd;
@@ -26,7 +26,7 @@ char* CloneTextData (char* ps)
 // 使用指定文本数据建立易程序中使用的文本数据。
 //   nTextLen用作指定文本部分的长度（不包含结束零），
 // 如果为-1，则取ps的全部长度。
-char* _CloneTextData (char* ps, INT nTextLen)
+char* WINAPIV _CloneTextData (char* ps, INT nTextLen)
 {
 	char* pd;
     if (nTextLen <= 0)
@@ -39,7 +39,7 @@ char* _CloneTextData (char* ps, INT nTextLen)
 }
 
 // 使用指定数据建立易程序中使用的字节集数据。
-LPBYTE CloneBinData (LPBYTE pData, INT nDataSize)
+LPBYTE WINAPIV CloneBinData (LPBYTE pData, INT nDataSize)
 {
 	LPBYTE pd;
     if (nDataSize == 0)
@@ -58,12 +58,12 @@ void GReportError (char* szErrText)
 	//krnl_MReportError(szErrText);
 }
 
-void* MMalloc (INT nSize)
+void* WINAPIV MMalloc (INT nSize)
 {
 	return (void*)krnl_MMalloc (nSize);
 }
 
-void MFree (void* p)
+void WINAPIV MFree (void* p)
 {
 	krnl_MFree( p );
 }
