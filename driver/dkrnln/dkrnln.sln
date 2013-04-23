@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dkrnln", "dkrnln.vcproj", "{71A10BF5-3E0E-4BC1-9F1B-50F8A9AEE747}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		WXP Checked = WXP Checked
+		WXP Free = WXP Free
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{71A10BF5-3E0E-4BC1-9F1B-50F8A9AEE747}.WXP Checked.ActiveCfg = WXP Checked|Win32
+		{71A10BF5-3E0E-4BC1-9F1B-50F8A9AEE747}.WXP Checked.Build.0 = WXP Checked|Win32
+		{71A10BF5-3E0E-4BC1-9F1B-50F8A9AEE747}.WXP Free.ActiveCfg = WXP Free|Win32
+		{71A10BF5-3E0E-4BC1-9F1B-50F8A9AEE747}.WXP Free.Build.0 = WXP Free|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

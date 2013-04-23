@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="gb2312"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="dkrnln"
+	ProjectGUID="{71A10BF5-3E0E-4BC1-9F1B-50F8A9AEE747}"
+	SccProjectName=""
+	SccLocalPath=""
+	Keyword="MakeFileProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="WXP Free|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild -WXP free ."
+				ReBuildCommandLine="ddkbuild -WXP free . -cZ"
+				Output="dkrnln.sys"/>
+		</Configuration>
+		<Configuration
+			Name="WXP Checked|Win32"
+			OutputDirectory="."
+			IntermediateDirectory="."
+			ConfigurationType="0"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCNMakeTool"
+				BuildCommandLine="ddkbuild -WXP checked ."
+				ReBuildCommandLine="ddkbuild -WXP checked . -cZ"
+				Output="dkrnln.sys"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			<File
+				RelativePath="dkrnln.c">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="common.h">
+			</File>
+			<File
+				RelativePath="dkrnln.h">
+			</File>
+			<File
+				RelativePath="struct.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+		</Filter>
+		<Filter
+			Name="elib"
+			Filter="">
+			<File
+				RelativePath=".\fnshare.c">
+			</File>
+			<File
+				RelativePath=".\fnshare.h">
+			</File>
+			<File
+				RelativePath=".\lang.h">
+			</File>
+			<File
+				RelativePath=".\lib2.h">
+			</File>
+		</Filter>
+		<File
+			RelativePath="sources">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

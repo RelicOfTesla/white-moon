@@ -1,0 +1,22 @@
+使用说明:
+易语言驱动编写使用复杂 而且要求有驱动编写基础 并且不怕麻烦人使用 不建议新手使用 
+由于易语言不支持指令 所以很多结构要求自己计算偏移 可以在VC中使用offsetof宏计算 比如 offsetof(DRIVER_OBJECT, DriverUnload) 
+易语言必须为5.1测试版以上(支持lib调用)
+代码编写时 DLL命令只能使用lib调用 即库文件名必须为*.lib 而不能是*.dll
+驱动中使用到的lib 可以下载xpddk从中获取
+扩充核心库时 请小心指令的编写 内核堆栈只有8096 所以局部变量不能太多太大 否则会蓝屏
+
+
+编译说明:
+1 在e\tools\link.ini中 设置 retain_intermediate_files=yes
+2 在易语言按照例子程序编写代码 将程序类型设置为Windows 动态链接库
+3 DriverEntry必须为公开 且参数为2个 这个是驱动入口 _启动子程序 将不会调用
+4 将代码静态编译 如果没有意外的话 在目的目录中 将生成一个*.obj文件
+5 将这个obj文件进行link 生成驱动 link命令参数在下面说明
+
+link按照下面的格式调用(注意: 没有换行符) 将下面的目录修改成自己硬盘中正确的目录
+"C:\Program Files\e\VC98linker1\bin\link.exe" "C:\Users\LoWin\Desktop\11.obj" "C:\Users\LoWin\Documents\Visual Studio Projects\dkrnln\objchk\i386\krnln_static.lib" "C:\WINDDK\2600\lib\wxp\i386\ntoskrnl.lib" "C:\WINDDK\2600\lib\wxp\i386\hal.lib" "C:\WINDDK\2600\lib\wxp\i386\wmilib.lib" /MAP /machine:I386 /MERGE:_PAGE=PAGE /MERGE:_TEXT=.text /SECTION:INIT,d /OPT:REF /OPT:ICF /IGNORE:4010,4037,4039,4065,4070,4078,4087,4089,4198,4221 /INCREMENTAL:NO /FULLBUILD /STACK:0x40000,0x1000 /driver /base:0x10000 /align:0x80 /subsystem:native,5.1 /entry:DriverEntry@8 /out:"C:\Users\LoWin\Desktop\11.sys"
+
+
+
+如果想要link自动化 可以自己写一个link.exe 将易语言指向自己的link.exe 然后在link.exe中分析出正确的文件并调用正确的link.exe
