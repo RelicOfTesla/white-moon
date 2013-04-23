@@ -380,7 +380,7 @@ NTSTATUS
     IN ULONG  ShareAccess,
     IN ULONG  OpenOptions
     );
-
+#if (NTDDI_VERSION < NTDDI_WIN2K)
 NTSYSAPI
 NTSTATUS 
 ZwOpenProcess(
@@ -389,7 +389,7 @@ ZwOpenProcess(
    IN POBJECT_ATTRIBUTES ObjectAttributes, 
    IN PCLIENT_ID ClientId
    );
-
+#endif
 NTSYSAPI
 NTSTATUS
 PsLookupProcessByProcessId(
