@@ -153,6 +153,9 @@ __declspec(naked) KRNLN_FUNC(fnAbs)
 	}
 }
 
+EXTERN_C long _cdecl _ftol2(double x);
+EXTERN_C long _cdecl _ftol2_sse(double a){ return _ftol2(a); }
+
 //	〈整数型〉 取整 （双精度小数型 欲取整的小数）
 EXTERN_C INT WINAPIV krnln_fnInt(INT nArgCount, MDATA_INF ArgInf,...)
 {

@@ -8,3 +8,4 @@
 请使用 驱动编译支持库 来编译，把lib复制到\e\eDriver\lib位置
 https://github.com/tiansin/edriver-build 可下载
 易语言编译时若提示编译失败，有可能是link与lib的版本不对，或者无法直接执行link（不能加载vs环境变量）
+建议使用winddk自带的link，如linker="D:\dev\WinDDK\7600.16385.1\bin\x86\x86\link.exe"
